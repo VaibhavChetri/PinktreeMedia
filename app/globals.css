@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Pink Tree Media — design tokens (PRD section 3)
+   Every colour, type size, space and easing lives here.
+   Never hardcode these values in a component.
+   ============================================================ */
+
+@theme {
+  /* ---- Colour ---- */
+  --color-ink: #0e0e0e; /* near-black: primary text, dark sections */
+  --color-paper: #fafaf8; /* warm off-white: background */
+  --color-pink: #de80b3; /* sampled from logo-dark.png (222,128,179) */
+  --color-pink-deep: #c873a1; /* 10% darker, hover states */
+  --color-stone: #8a8580; /* warm grey: captions, meta */
+  --color-line: #e5e2dd; /* hairlines, dividers */
+
+  /* ---- Type families ---- */
+  --font-sans: var(--font-general-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-sentient), ui-serif, Georgia, serif;
+
+  /* ---- Type scale (fluid, PRD: 12/16/20/32/48/72/104) ---- */
+  --text-eyebrow: clamp(0.75rem, 0.74rem + 0.05vw, 0.8125rem); /* 12 */
+  --text-eyebrow--line-height: 1.4;
+  --text-eyebrow--letter-spacing: 0.12em;
+  --text-eyebrow--font-weight: 500;
+
+  --text-body: clamp(1rem, 0.97rem + 0.15vw, 1.125rem); /* 16 */
+  --text-body--line-height: 1.6;
+
+  --text-lede: clamp(1.125rem, 1.04rem + 0.4vw, 1.25rem); /* 20 */
+  --text-lede--line-height: 1.5;
+
+  --text-h3: clamp(1.5rem, 1.15rem + 1.55vw, 2rem); /* 32 */
+  --text-h3--line-height: 1.15;
+
+  --text-h2: clamp(2rem, 1.35rem + 2.9vw, 3rem); /* 48 */
+  --text-h2--line-height: 1.08;
+
+  --text-h1: clamp(2.75rem, 1.5rem + 5.6vw, 4.5rem); /* 72 */
+  --text-h1--line-height: 1.05;
+
+  /* Hero display: sized so the two-line headline reads on two lines from 360px up.
+     Floor 44px (widest single word fits the 360 spec-min); ~88px cap on large. */
+  --text-display: clamp(2.75rem, 6vw, 5.5rem); /* 44 -> 88 */
+  --text-display--line-height: 0.95;
+  --text-display--letter-spacing: -0.03em;
+
+  /* ---- Motion ---- */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Layout tokens that switch at a breakpoint (can't be static @theme):
+   section padding 72 -> 120, gutters 24 -> 48. Consumed as var(). */
+:root {
+  --gutter: 24px;
+  --shell-max: 1440px;
+  --space-section: 72px;
+  --nav-h: 80px; /* mobile */
+  --hero-inset: clamp(32px, 6vw, 120px); /* content x-offset in the hero */
+}
+@media (min-width: 768px) {
+  :root {
+    --gutter: 48px;
+    --space-section: 120px;
+    --nav-h: 112px; /* desktop — bold brand presence */
+  }
+}
+
+/* ---- Base ---- */
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headlines default to Sentient with tight leading + slight negative tracking.
+   MUST live in @layer base: Tailwind v4 utilities are layered, and unlayered CSS
+   beats any layer regardless of specificity. Unlayered, this block silently
+   overrode font-light / text-display leading + tracking on every heading. */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    text-wrap: balance; /* even line lengths, no orphans, on every heading */
+  }
+}
+
+/* Radius 0 everywhere (PRD): editorial, not soft. */
+* {
+  border-radius: 0;
+}
+
+/* Hero headline words: inline-block so the per-word translateY reveal applies
+   (transforms are ignored on inline elements). */
+.hero-word {
+  display: inline-block;
+}
+
+/* Ken Burns: a slow, barely-there push on full-bleed hero imagery. Paired with
+   [data-parallax] drift for a cinematic-still feel. Killed under reduced motion
+   by the global rule below (duration ~0 -> snaps to the untransformed base). */
+.hero-kenburns {
+  animation: kenburns 24s var(--ease-out-soft) infinite alternate;
+  will-change: transform;
+}
+@keyframes kenburns {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.12) translate3d(1.5%, -1.5%, 0);
+  }
+}
+
+/* Visible focus states on all interactive elements. currentColor tracks the
+   context (paper text over dark sections, ink on light) so the ring is visible
+   on both — no single token colour clears 3:1 against both paper and ink. */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* The fixed mobile CTA bar (~64px) overlays the viewport bottom. Keep focused
+   form fields clear of it when the browser scrolls them into view. */
+@media (max-width: 767px) {
+  html {
+    scroll-padding-bottom: 6rem;
+  }
+}
+
+/* Custom cursor: hide the native cursor when active, but keep the text caret in
+   form fields. Only added on fine-pointer, motion-enabled devices by JS, and
+   only >=768px where the custom cursor element actually renders (below that the
+   native cursor must stay, or a narrow desktop window would have no cursor). */
+@media (min-width: 768px) {
+  .has-custom-cursor,
+  .has-custom-cursor a,
+  .has-custom-cursor button {
+    cursor: none;
+  }
+  .has-custom-cursor input,
+  .has-custom-cursor textarea,
+  .has-custom-cursor select {
+    cursor: auto;
+  }
+}
+
+/* Magnetic elements: quick transform follow/return, plus keep their colour
+   transitions (this unlayered rule would otherwise replace them). */
+[data-magnetic] {
+  transition:
+    transform 0.25s var(--ease-out-soft),
+    color 0.4s var(--ease-out-soft),
+    background-color 0.4s var(--ease-out-soft),
+    border-color 0.4s var(--ease-out-soft);
+}
+
+/* Reduced motion: disable all animation/transition/scroll behaviour. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
