@@ -15,13 +15,15 @@ const LINKS = [
 export default function Nav() {
   const pathname = usePathname();
   // Pages that open with a dark full-bleed hero under the transparent nav.
-  // Home, the work/about/contact heroes, and every case-study opener.
+  // Home, the work/about/contact heroes, every case-study opener, and the
+  // service pages (each opens with a PageHero).
   const darkHero =
     pathname === "/" ||
     pathname === "/work" ||
     pathname === "/about" ||
     pathname === "/contact" ||
-    /^\/work\/[^/]+$/.test(pathname);
+    /^\/work\/[^/]+$/.test(pathname) ||
+    /^\/services\/[^/]+$/.test(pathname);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 

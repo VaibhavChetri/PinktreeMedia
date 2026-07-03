@@ -85,6 +85,14 @@ const CAPABILITIES = [
   "Social Media",
 ];
 
+// Each capability now has its own service page (was all -> /work).
+const SERVICE_HREFS: Record<string, string> = {
+  "Design & Branding": "/services/design-branding",
+  "Print & Merchandise": "/services/print-merchandise",
+  "Websites & Digital": "/services/websites-digital",
+  "Social Media": "/services/social-media",
+};
+
 // Selected clients / brands (matches the v1 roster).
 const SELECTED_CLIENTS = [
   "The Chigwell Marquees",
@@ -178,14 +186,14 @@ export default function Home() {
 
       {/* 3 — What we do. Editorial index: hairline rows, hover reveals a pink
           name + a sliding arrow. Rows link to the work (services live there). */}
-      <section className="bg-paper pb-24 md:pb-40">
+      <section className="bg-paper pb-[var(--space-section)]">
         <Container>
           <CursorImageTrail groups={CAPABILITY_IMAGES}>
           <ul data-reveal-stagger>
             {CAPABILITIES.map((capability, i) => (
               <li key={capability} data-trail-key={capability}>
                 <Link
-                  href="/work"
+                  href={SERVICE_HREFS[capability]}
                   className={`group flex items-center justify-between border-b border-line py-6 ${
                     i === 0 ? "border-t" : ""
                   }`}
@@ -217,13 +225,10 @@ export default function Home() {
 
       {/* 4 — Selected work */}
       <section className="bg-paper">
-        <Container className="pt-24 md:pt-40">
+        <Container className="pt-[var(--space-section)]">
           <p className="text-eyebrow uppercase text-stone">Selected work</p>
-          <h2 data-reveal className="mt-6 font-display text-h2 font-light">
-            Proof, not promises.
-          </h2>
         </Container>
-        <div className="mt-16 md:mt-24">
+        <div className="mt-[var(--space-section)]">
           <SelectedWork items={liveCaseStudies()} />
         </div>
       </section>

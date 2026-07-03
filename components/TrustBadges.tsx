@@ -4,19 +4,21 @@ import { useEffect, useRef, useState } from "react";
 
 // Trust Signals as a physics pile: client-name pills drop in, collide, settle,
 // and can be dragged/thrown. DOM pills are driven by a Matter.js world (so the
-// names keep the Sentient serif + brand colours). Desktop only; mobile and
-// prefers-reduced-motion get a static, quiet list instead.
+// names keep the Sentient serif + brand colours). Runs on phones too now;
+// only prefers-reduced-motion gets a static, quiet list instead.
 export default function TrustBadges({ names }: { names: string[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [physics, setPhysics] = useState(false);
 
   useEffect(() => {
-    const wide = window.matchMedia("(min-width: 768px)").matches;
-    const fine = window.matchMedia("(pointer: fine)").matches;
+    // Physics runs everywhere now (phones included) — Matter's Mouse binds touch
+    // events, so drag/throw works on touch too. Only reduced-motion opts out.
     const reduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    if (wide && fine && !reduced) setPhysics(true);
+    if (!reduced) setPhysics(true);
+    // ponytail: touch-drag on a pill throws it instead of scrolling; fine on this
+    // short section. Add touch-action guards only if scroll-trapping is reported.
   }, []);
 
   useEffect(() => {

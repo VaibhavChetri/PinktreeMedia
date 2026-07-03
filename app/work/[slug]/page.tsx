@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import Container from "@/components/Container";
 import PageHero from "@/components/PageHero";
 import ScrollThread from "@/components/ScrollThread";
-import ConsultationButton from "@/components/ConsultationButton";
 import JsonLd from "@/components/JsonLd";
 import {
   liveCaseStudies,
@@ -93,33 +92,49 @@ export default async function CaseStudyPage({
     );
   }
 
-  // 4 — The Work (2 to 5 large images, loose mixed-width arrangement)
+  // 4 — The Work. Balanced editorial rows: image on one side, text on the
+  // other, alternating and vertically centred — not image-with-caption-stacked.
   chapters.push(
     <section key="work">
       <h2 data-reveal className="text-eyebrow uppercase text-ink">
         The Work
       </h2>
-      <div className="mt-12 flex flex-col gap-16 md:gap-24">
-        {content.work.map((img, i) => (
-          <figure
-            key={img.src}
-            data-reveal
-            className={i % 2 === 0 ? "w-full" : "w-full md:w-3/4 md:self-end"}
-          >
-            <div className="relative aspect-[3/2] w-full overflow-hidden">
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                sizes="(min-width: 768px) 75vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-            <figcaption className="mt-4 text-eyebrow uppercase text-stone">
-              {img.caption}
-            </figcaption>
-          </figure>
-        ))}
+      <div className="mt-16 flex flex-col gap-20 md:gap-28">
+        {content.work.map((img, i) => {
+          const flip = i % 2 === 1; // odd rows put the image on the right
+          return (
+            <figure
+              key={img.src}
+              className="grid items-center gap-8 md:grid-cols-12 md:gap-14"
+            >
+              <div
+                data-reveal-clip
+                className={`md:col-span-7 ${flip ? "md:order-2" : "md:order-1"}`}
+              >
+                <div className="relative aspect-[3/2] w-full overflow-hidden">
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    sizes="(min-width: 768px) 58vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+              <figcaption
+                data-reveal
+                className={`md:col-span-5 ${flip ? "md:order-1" : "md:order-2"}`}
+              >
+                <p className="text-eyebrow uppercase text-stone">
+                  {String(i + 1).padStart(2, "0")} — {img.caption}
+                </p>
+                <p className="mt-5 max-w-[42ch] text-lede text-ink">
+                  {img.blurb ?? img.caption}
+                </p>
+              </figcaption>
+            </figure>
+          );
+        })}
       </div>
     </section>,
   );
@@ -171,9 +186,6 @@ export default async function CaseStudyPage({
           />
         </Link>
       )}
-      <div className="mt-12">
-        <ConsultationButton />
-      </div>
     </section>,
   );
 

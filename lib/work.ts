@@ -15,7 +15,12 @@ export type CaseStudy = {
 };
 
 export type Delivered = { area: string; line: string };
-export type WorkImage = { src: string; alt: string; caption: string };
+export type WorkImage = {
+  src: string;
+  alt: string;
+  caption: string;
+  blurb?: string; // short text set beside the image in the balanced layout
+};
 export type CaseStudyContent = {
   challenge: string; // <= 50 words
   delivered: Delivered[]; // empty -> chapter omitted
@@ -106,11 +111,36 @@ export const CASE_STUDY_CONTENT: Record<string, CaseStudyContent> = {
         src: "/images/chigwell-stationery-flatlay.jpg",
         alt: "Brand stationery for the venues laid out on dark linen.",
         caption: "Brand stationery",
+        blurb:
+          "The identity applied across the everyday pieces — cards, folders and correspondence, all speaking the same quiet language.",
+      },
+      {
+        src: "/images/services/chigwell-brochure-open.png",
+        alt: "The printed venue brochure lying open, showing estate photography and editorial layout.",
+        caption: "Venue brochure",
+        blurb:
+          "A printed brochure that carries the venues at full weight, pairing estate photography with a calm editorial layout.",
+      },
+      {
+        src: "/images/services/chigwell-marquee-interior.png",
+        alt: "The illuminated marquee interior at evening, dressed with string lights and table settings.",
+        caption: "The venue, dressed",
+        blurb:
+          "The brand meeting the room: warm light, considered dressing and a sense of occasion the moment guests arrive.",
       },
       {
         src: "/images/chigwell-brochure-detail.jpg",
         alt: "A macro detail of the printed venue brochure.",
-        caption: "Venue brochure",
+        caption: "Print detail",
+        blurb:
+          "Spot-gloss, weight and finish — the details you feel in the hand before you read a single word.",
+      },
+      {
+        src: "/images/services/chigwell-signage-dusk.png",
+        alt: "Branded welcome signage at the venue entrance at dusk, marquee lit behind.",
+        caption: "On-site branding",
+        blurb:
+          "Wayfinding and welcome signage that carries the identity from the page out onto the grounds themselves.",
       },
     ],
     // Results chapter omitted: no measurable results verified.

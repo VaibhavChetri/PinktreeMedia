@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Container from "@/components/Container";
-import ConsultationButton from "@/components/ConsultationButton";
 import PageHero from "@/components/PageHero";
-import RevealLines from "@/components/RevealLines";
 
 export const metadata: Metadata = {
   title: "About | Pink Tree Media",
@@ -104,19 +102,6 @@ export default function About() {
           We work with a small number of clients for the long term, as a
           trusted partner invested in the reputation we help to build.
         </p>
-      </section>
-
-      {/* Closing CTA */}
-      <section className="mt-[var(--space-section)] border-t border-line pt-[var(--space-section)]">
-        <RevealLines
-          as="h2"
-          trigger="scroll"
-          lines={["Let’s build something", "worth remembering."]}
-          className="max-w-[18ch] font-display text-h2 font-light"
-        />
-        <div className="mt-10">
-          <ConsultationButton />
-        </div>
       </section>
       </Container>
     </>

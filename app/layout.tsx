@@ -4,7 +4,6 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import MotionProvider from "@/components/MotionProvider";
-import MobileCtaBar from "@/components/MobileCtaBar";
 import CustomCursor from "@/components/CustomCursor";
 import { SITE_URL, SITE_NAME } from "@/lib/site";
 
@@ -34,7 +33,6 @@ export default function RootLayout({
           <Nav />
           <main id="main">{children}</main>
           <Footer />
-          <MobileCtaBar />
         </MotionProvider>
       </body>
     </html>
