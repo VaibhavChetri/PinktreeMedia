@@ -115,14 +115,14 @@ export const CASE_STUDY_CONTENT: Record<string, CaseStudyContent> = {
           "The identity applied across the everyday pieces — cards, folders and correspondence, all speaking the same quiet language.",
       },
       {
-        src: "/images/services/chigwell-brochure-open.png",
+        src: "/images/services/chigwell-brochure-open.webp",
         alt: "The printed venue brochure lying open, showing estate photography and editorial layout.",
         caption: "Venue brochure",
         blurb:
           "A printed brochure that carries the venues at full weight, pairing estate photography with a calm editorial layout.",
       },
       {
-        src: "/images/services/chigwell-marquee-interior.png",
+        src: "/images/services/chigwell-marquee-interior.webp",
         alt: "The illuminated marquee interior at evening, dressed with string lights and table settings.",
         caption: "The venue, dressed",
         blurb:
@@ -136,7 +136,7 @@ export const CASE_STUDY_CONTENT: Record<string, CaseStudyContent> = {
           "Spot-gloss, weight and finish — the details you feel in the hand before you read a single word.",
       },
       {
-        src: "/images/services/chigwell-signage-dusk.png",
+        src: "/images/services/chigwell-signage-dusk.webp",
         alt: "Branded welcome signage at the venue entrance at dusk, marquee lit behind.",
         caption: "On-site branding",
         blurb:

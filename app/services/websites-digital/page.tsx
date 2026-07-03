@@ -48,7 +48,7 @@ export default function WebsitesDigitalPage() {
         eyebrow="Service — Websites & Digital"
         title={["Websites", "& Digital"]}
         subhead="We design and build fast, elegant websites and digital products — refined interfaces, thoughtful motion, and engineering that quietly holds it all together."
-        image="/images/services/web-hero.png"
+        image="/images/services/web-hero.webp"
         imageAlt="A sleek laptop and phone showing an elegant minimal website, blush rim light on a dark desk."
         cta
         spotlight
@@ -106,7 +106,7 @@ export default function WebsitesDigitalPage() {
           <figure data-reveal-clip className="w-full md:w-3/4">
             <div className="relative aspect-[3/2] w-full overflow-hidden">
               <Image
-                src="/images/services/web-ui.png"
+                src="/images/services/web-ui.webp"
                 alt="An abstract elegant interface glowing on a monitor in a dim studio."
                 fill
                 sizes="(min-width: 768px) 75vw, 100vw"
@@ -120,7 +120,7 @@ export default function WebsitesDigitalPage() {
           <figure data-reveal-clip className="w-full md:w-3/4 md:self-end">
             <div className="relative aspect-[3/2] w-full overflow-hidden">
               <Image
-                src="/images/services/web-code.png"
+                src="/images/services/web-code.webp"
                 alt="Hands typing on a premium keyboard with warm screen glow in a dim studio."
                 fill
                 sizes="(min-width: 768px) 75vw, 100vw"

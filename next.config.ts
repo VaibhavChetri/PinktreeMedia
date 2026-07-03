@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Serve AVIF (smaller than WebP for these photos) with WebP fallback, and
+  // cache optimized images for a year so Vercel only optimizes each once.
+  images: {
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 31536000,
+  },
   async redirects() {
     return [
       // Legacy WordPress portfolio URLs -> new Work section.

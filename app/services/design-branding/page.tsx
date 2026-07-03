@@ -48,7 +48,7 @@ export default function DesignBrandingPage() {
         eyebrow="Service — Design & Branding"
         title={["Design &", "Branding"]}
         subhead="We shape the whole visual world of a brand — the mark, the palette, the type, the tone — into something coherent, considered and unmistakably yours."
-        image="/images/services/design-hero.png"
+        image="/images/services/design-hero.webp"
         imageAlt="Luxury brand identity materials — embossed cards, a blush leather guidelines book and colour swatches — on dark stone."
         cta
       />
@@ -98,7 +98,7 @@ export default function DesignBrandingPage() {
           <figure data-reveal-clip className="w-full">
             <div className="relative aspect-[3/2] w-full overflow-hidden">
               <Image
-                src="/images/services/design-detail.png"
+                src="/images/services/design-detail.webp"
                 alt="Macro detail of a debossed monogram pressed into cotton paper with blush foil."
                 fill
                 sizes="(min-width: 768px) 90vw, 100vw"
@@ -112,7 +112,7 @@ export default function DesignBrandingPage() {
           <figure data-reveal-clip className="w-full md:w-3/4 md:self-end">
             <div className="relative aspect-[3/2] w-full overflow-hidden">
               <Image
-                src="/images/services/design-process.png"
+                src="/images/services/design-process.webp"
                 alt="A designer's dark desk with mood boards, type specimens and fabric swatches."
                 fill
                 sizes="(min-width: 768px) 75vw, 100vw"

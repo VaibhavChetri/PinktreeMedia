@@ -45,7 +45,7 @@ export default function SocialMediaPage() {
         eyebrow="Service — Social Media"
         title={["Social", "Media"]}
         subhead="We craft social content and campaigns that carry a brand's voice with consistency and taste — art-directed, on-message, and built to grow an audience worth having."
-        image="/images/services/social-hero-notext.png"
+        image="/images/services/social-hero-notext.webp"
         imageAlt="A styled social content flat lay — a phone showing an editorial feed, peonies and props on a dark surface."
         cta
       />
@@ -75,7 +75,7 @@ export default function SocialMediaPage() {
           <figure data-reveal-clip className="col-span-2 md:col-span-2">
             <div className="relative aspect-[3/2] w-full overflow-hidden">
               <Image
-                src="/images/services/social-feed.png"
+                src="/images/services/social-feed.webp"
                 alt="A curated grid of editorial lifestyle photographs laid out like a social feed."
                 fill
                 sizes="(min-width: 768px) 60vw, 100vw"
@@ -86,7 +86,7 @@ export default function SocialMediaPage() {
           <figure data-reveal-clip>
             <div className="relative aspect-[3/4] w-full overflow-hidden">
               <Image
-                src="/images/services/social-studio.png"
+                src="/images/services/social-studio.webp"
                 alt="A content-creation setup with camera and softbox in a chic dark interior."
                 fill
                 sizes="(min-width: 768px) 30vw, 50vw"

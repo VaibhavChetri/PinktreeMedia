@@ -45,7 +45,7 @@ export default function PrintMerchandisePage() {
         eyebrow="Service — Print & Merchandise"
         title={["Print &", "Merchandise"]}
         subhead="From the first press sheet to the final flourish, we produce print and merchandise that feels as considered in the hand as it looks on screen."
-        image="/images/services/print-hero.png"
+        image="/images/services/print-hero.webp"
         imageAlt="A stack of luxury printed brochures with matte and spot-gloss finishes on a dark walnut table."
         cta
       />
@@ -75,7 +75,7 @@ export default function PrintMerchandisePage() {
           <figure data-reveal-clip>
             <div className="relative aspect-[3/2] w-full overflow-hidden">
               <Image
-                src="/images/services/print-merch.png"
+                src="/images/services/print-merch.webp"
                 alt="Branded merchandise flat lay — tote, enamel pin and letterpress cards on dark linen."
                 fill
                 sizes="(min-width: 768px) 45vw, 100vw"
@@ -89,7 +89,7 @@ export default function PrintMerchandisePage() {
           <figure data-reveal-clip className="md:mt-24">
             <div className="relative aspect-[3/2] w-full overflow-hidden">
               <Image
-                src="/images/services/print-detail.png"
+                src="/images/services/print-detail.webp"
                 alt="Macro detail of foil-stamped packaging with a silk ribbon and wax seal."
                 fill
                 sizes="(min-width: 768px) 45vw, 100vw"
