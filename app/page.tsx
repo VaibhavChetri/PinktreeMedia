@@ -165,7 +165,7 @@ export default function Home() {
       </section>
 
       {/* 2 — Who we are. 7/12 column, 5/12 deliberately empty (negative space). */}
-      <section className="bg-paper py-24 md:py-40">
+      <section className="bg-paper py-[var(--space-section)]">
         <Container>
           <div className="grid grid-cols-1 md:grid-cols-12">
             <div className="md:col-span-7" data-reveal-stagger>
@@ -223,12 +223,13 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* 4 — Selected work */}
+      {/* 4 — Selected work. No top padding: section 3's pb-[--space-section]
+          already provides the gap (one boundary, one gap). */}
       <section className="bg-paper">
-        <Container className="pt-[var(--space-section)]">
+        <Container>
           <p className="text-eyebrow uppercase text-stone">Selected work</p>
         </Container>
-        <div className="mt-[var(--space-section)]">
+        <div className="mt-10 md:mt-14">
           <SelectedWork items={liveCaseStudies()} />
         </div>
       </section>
