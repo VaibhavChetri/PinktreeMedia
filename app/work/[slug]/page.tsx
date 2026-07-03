@@ -203,11 +203,13 @@ export default async function CaseStudyPage({
         minH="88vh"
       />
 
-      {/* Chapters, separated by the pink thread */}
-      <Container className="pb-[var(--space-section)]">
+      {/* Chapters, separated by the pink thread. No thread before the first
+          chapter (the Container's top padding spaces it off the hero), and a
+          tighter thread margin between chapters so there's no dead space. */}
+      <Container className="py-[var(--space-section)]">
         {chapters.map((chapter, i) => (
           <div key={i}>
-            <ScrollThread className="my-[var(--space-section)]" />
+            {i > 0 && <ScrollThread className="my-10 md:my-14" />}
             {chapter}
           </div>
         ))}
