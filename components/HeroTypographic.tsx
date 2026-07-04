@@ -103,6 +103,22 @@ export default function HeroTypographic() {
       return;
     }
 
+    // iOS/Safari inline autoplay: React sets only the muted *attribute*, not the
+    // property, so the video counts as unmuted and autoplay is blocked (the
+    // play-button overlay). Force the property, kick play(), and retry on the
+    // first user interaction (covers Low Power Mode, which blocks autoplay).
+    const startVideo = () => {
+      if (!videoEl) return;
+      videoEl.muted = true;
+      videoEl.defaultMuted = true;
+      const p = videoEl.play();
+      if (p && typeof p.catch === "function") p.catch(() => {});
+    };
+    startVideo();
+    const kick = () => startVideo();
+    window.addEventListener("touchstart", kick, { once: true, passive: true });
+    window.addEventListener("pointerdown", kick, { once: true });
+
     const ease = CustomEase.create("heroSoft", "M0,0 C0.22,1 0.36,1 1,1");
 
     const ctx = gsap.context(() => {
@@ -144,7 +160,11 @@ export default function HeroTypographic() {
       }
     }, rootRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      window.removeEventListener("touchstart", kick);
+      window.removeEventListener("pointerdown", kick);
+    };
   }, []);
 
   return (
