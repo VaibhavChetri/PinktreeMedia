@@ -112,20 +112,7 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
         );
       });
 
-      // Hero headline: word by word, on LOAD only (not scroll). Starts 300ms
-      // after load, 700ms per word, 60ms between words.
-      const words = gsap.utils.toArray<HTMLElement>(".hero-word");
-      if (words.length) {
-        gsap.from(words, {
-          opacity: 0,
-          y: 20,
-          duration: 0.7,
-          stagger: 0.06,
-          delay: 0.3,
-          ease: outSoft,
-        });
-      }
-      // (Hero image scale removed — the hero is now a video sizzle.)
+      // (Home hero motion now lives in HeroTypographic's own timeline.)
     });
 
     ScrollTrigger.refresh();

@@ -14,16 +14,6 @@ const LINKS = [
 
 export default function Nav() {
   const pathname = usePathname();
-  // Pages that open with a dark full-bleed hero under the transparent nav.
-  // Home, the work/about/contact heroes, every case-study opener, and the
-  // service pages (each opens with a PageHero).
-  const darkHero =
-    pathname === "/" ||
-    pathname === "/work" ||
-    pathname === "/about" ||
-    pathname === "/contact" ||
-    /^\/work\/[^/]+$/.test(pathname) ||
-    /^\/services\/[^/]+$/.test(pathname);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -52,16 +42,15 @@ export default function Nav() {
     };
   }, [menuOpen]);
 
-  // Paper mode = dark logo + ink text (scrolled, non-hero page, or menu open).
-  const paperMode = scrolled || !darkHero || menuOpen;
-  const solid = scrolled || !darkHero;
+  // Every page opens with a dark/cinematic hero under the transparent nav, so
+  // the nav is paper (white) at the top and flips to ink once it turns solid
+  // (paper + hairline) after 80px of scroll — or when the mobile menu is open.
+  const solid = scrolled || menuOpen;
 
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-[500ms] ease-[var(--ease-out-soft)] ${
-        paperMode
-          ? "text-ink"
-          : "text-paper"
+        solid ? "text-ink" : "text-paper"
       } ${
         solid && !menuOpen
           ? "border-b border-line bg-paper"
@@ -72,20 +61,22 @@ export default function Nav() {
         <Link
           href="/"
           aria-label="Pink Tree Media, home"
-          className="relative z-[60] flex items-center"
+          className="relative z-[60] flex items-center gap-3"
         >
-          {/* 48px on mobile, 56px on desktop. Widths keep the logo's true 4.04
-              ratio so it fills the height without letterboxing or distortion.
-              fill + fixed-ratio wrapper: no next/image warning, no flex-shrink. */}
-          <span className="relative block h-12 w-[194px] md:h-14 md:w-[226px]">
-            <Image
-              src={paperMode ? "/brand/logo-dark.png" : "/brand/logo-light.png"}
-              alt="Pink Tree Media"
-              fill
-              priority
-              sizes="178px"
-              className="object-contain object-left"
-            />
+          {/* Mark at 20px, auto width; wordmark 12px General Sans, tracked. */}
+          <Image
+            src="/brand/mark.avif"
+            alt="Pink Tree Media"
+            width={96}
+            height={96}
+            priority
+            className="h-5 w-auto"
+          />
+          <span
+            className="font-sans font-medium"
+            style={{ fontSize: "12px", letterSpacing: "0.15em" }}
+          >
+            PINK TREE MEDIA
           </span>
         </Link>
 

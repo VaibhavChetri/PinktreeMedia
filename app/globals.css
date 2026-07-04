@@ -56,14 +56,14 @@
   --gutter: 24px;
   --shell-max: 1440px;
   --space-section: 72px;
-  --nav-h: 80px; /* mobile */
+  --nav-h: 60px; /* mobile */
   --hero-inset: clamp(32px, 6vw, 120px); /* content x-offset in the hero */
 }
 @media (min-width: 768px) {
   :root {
     --gutter: 48px;
     --space-section: 120px;
-    --nav-h: 112px; /* desktop — bold brand presence */
+    --nav-h: 72px; /* desktop */
   }
 }
 
@@ -98,12 +98,6 @@ body {
 /* Radius 0 everywhere (PRD): editorial, not soft. */
 * {
   border-radius: 0;
-}
-
-/* Hero headline words: inline-block so the per-word translateY reveal applies
-   (transforms are ignored on inline elements). */
-.hero-word {
-  display: inline-block;
 }
 
 /* Ken Burns: a slow, barely-there push on full-bleed hero imagery. Paired with

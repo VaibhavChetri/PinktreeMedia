@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { sentient, generalSans } from "./fonts";
+import { sentient, generalSans, fraunces } from "./fonts";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -26,7 +26,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${sentient.variable} ${generalSans.variable}`}>
+    <html
+      lang="en"
+      className={`${sentient.variable} ${generalSans.variable} ${fraunces.variable}`}
+    >
       <body>
         <MotionProvider>
           <CustomCursor />

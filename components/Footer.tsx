@@ -14,6 +14,15 @@ export default function Footer() {
     <footer className="bg-ink text-paper">
       {/* generous scale; extra bottom padding on mobile clears the fixed CTA bar */}
       <Container className="pt-28 pb-[calc(var(--space-section)+88px)] md:pt-40 md:pb-40">
+        {/* brand mark — 32px, centred, above the columns */}
+        <Image
+          src="/brand/mark.avif"
+          alt="Pink Tree Media"
+          width={96}
+          height={96}
+          className="mx-auto mb-12 h-8 w-auto"
+        />
+
         {/* big invitation — the footer's focal point */}
         <p className="text-eyebrow uppercase text-stone">Get in touch</p>
         <ThreadLink

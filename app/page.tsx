@@ -4,7 +4,7 @@ import Image from "next/image";
 import Container from "@/components/Container";
 import ConsultationButton from "@/components/ConsultationButton";
 import SelectedWork from "@/components/SelectedWork";
-import HeroVideo from "@/components/HeroVideo";
+import HeroTypographic from "@/components/HeroTypographic";
 import CursorImageTrail from "@/components/CursorImageTrail";
 import TrustBadges from "@/components/TrustBadges";
 
@@ -107,62 +107,8 @@ export default function Home() {
     <>
       <JsonLd data={orgJsonLd} />
 
-      {/* 1 — Hero */}
-      <section className="relative h-[100svh] w-full overflow-hidden">
-        {/* z0: poster still — SSR/LCP image and the fallback (mobile + reduced motion).
-            The sizzle video lazy-mounts over it on tablet/desktop. */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/hero-poster.jpg"
-            alt="The London skyline at night seen from a dark high-floor office window."
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
-        </div>
-        {/* z0: cinematic sizzle loop, overlaid on the poster (tablet/desktop, motion on) */}
-        <HeroVideo />
-        {/* z1: overlay — dark on the left where the text lives, open on the right
-            so the skyline breathes. */}
-        <div
-          aria-hidden
-          className="absolute inset-0 z-[1] bg-[linear-gradient(to_right,rgba(0,0,0,0.72)_0%,rgba(0,0,0,0.3)_50%,rgba(0,0,0,0.1)_100%)]"
-        />
-        {/* z2: content — vertically centred, anchored to the hero inset. The block
-            centres at 50%, which sets the headline at roughly 40% from the top. */}
-        <div
-          className="absolute top-1/2 z-[2] -translate-y-1/2 pr-[var(--gutter)] text-paper"
-          style={{ left: "var(--hero-inset)", right: 0 }}
-        >
-          {/* subtle text-shadow: legibility insurance over the brightest video
-              frames; imperceptible as an effect, not a decorative shadow */}
-          <h1
-            data-hero-headline
-            className="font-display text-display font-light [text-shadow:0_2px_30px_rgba(0,0,0,0.5)]"
-          >
-            <span className="block">
-              <span className="hero-word">Complete</span>{" "}
-              <span className="hero-word">marketing</span>{" "}
-              <span className="hero-word">solutions</span>
-            </span>
-            <span className="block">
-              <span className="hero-word">for</span>{" "}
-              <span className="hero-word">ambitious</span>{" "}
-              <span className="hero-word">brands.</span>
-            </span>
-          </h1>
-          {/* the pink thread: 64px x 1px hairline, 32px below the headline */}
-          <div aria-hidden className="mt-8 h-px w-16 bg-pink" />
-          {/* thread + subheading read as one unit */}
-          <p className="mt-3 max-w-[40ch] font-sans text-[1.125rem] leading-relaxed text-paper/80 [text-shadow:0_1px_18px_rgba(0,0,0,0.6)]">
-            A UK luxury creative consultancy.
-          </p>
-          <div className="mt-10">
-            <ConsultationButton />
-          </div>
-        </div>
-      </section>
+      {/* 1 — Hero (kinetic typography, light) */}
+      <HeroTypographic />
 
       {/* 2 — Who we are. 7/12 column, 5/12 deliberately empty (negative space). */}
       <section className="bg-paper py-[var(--space-section)]">
