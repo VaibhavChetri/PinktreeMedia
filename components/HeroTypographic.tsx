@@ -79,6 +79,7 @@ export default function HeroTypographic() {
   const videoWrapRef = useRef<HTMLDivElement>(null);
   const scrimRef = useRef<HTMLDivElement>(null);
   const lineRefs = useRef<HTMLSpanElement[]>([]);
+  const videoElRef = useRef<HTMLVideoElement>(null);
   const ambitiousRef = useRef<SVGTextElement>(null);
 
   const setLine = (i: number) => (el: HTMLSpanElement | null) => {
@@ -90,7 +91,7 @@ export default function HeroTypographic() {
     const videoWrap = videoWrapRef.current;
     const scrim = scrimRef.current;
     const word = ambitiousRef.current;
-    const videoEl = videoWrap?.querySelector("video");
+    const videoEl = videoElRef.current;
     if (lines.length < 4) return;
 
     // Reduced motion: final state on load; hold the video on its first frame.
@@ -115,9 +116,25 @@ export default function HeroTypographic() {
       if (p && typeof p.catch === "function") p.catch(() => {});
     };
     startVideo();
+    // First user interaction — recovers Low Power Mode, which blocks autoplay
+    // until a gesture. Not `once`: keep listening in case an early tap misses.
     const kick = () => startVideo();
-    window.addEventListener("touchstart", kick, { once: true, passive: true });
-    window.addEventListener("pointerdown", kick, { once: true });
+    window.addEventListener("touchstart", kick, { passive: true });
+    window.addEventListener("pointerdown", kick);
+    // Keep it looping/playing when the tab refocuses or it scrolls back into
+    // view (iOS pauses off-screen muted video, and `loop` alone can miss).
+    const onVisible = () => {
+      if (document.visibilityState === "visible") startVideo();
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    let io: IntersectionObserver | null = null;
+    if (videoEl && "IntersectionObserver" in window) {
+      io = new IntersectionObserver(
+        (entries) => entries.forEach((e) => e.isIntersecting && startVideo()),
+        { threshold: 0.05 },
+      );
+      io.observe(videoEl);
+    }
 
     const ease = CustomEase.create("heroSoft", "M0,0 C0.22,1 0.36,1 1,1");
 
@@ -164,6 +181,8 @@ export default function HeroTypographic() {
       ctx.revert();
       window.removeEventListener("touchstart", kick);
       window.removeEventListener("pointerdown", kick);
+      document.removeEventListener("visibilitychange", onVisible);
+      io?.disconnect();
     };
   }, []);
 
@@ -175,6 +194,15 @@ export default function HeroTypographic() {
       {/* Full-bleed cinematic video — the glowing brand mark is the ambient light */}
       <div ref={videoWrapRef} className="absolute inset-[-4%] z-0 will-change-transform">
         <video
+          ref={(el) => {
+            videoElRef.current = el;
+            // Set the muted *property* immediately (React only sets the
+            // attribute), so iOS treats it as muted and can autoplay inline.
+            if (el) {
+              el.muted = true;
+              el.defaultMuted = true;
+            }
+          }}
           className="h-full w-full object-cover"
           src="/video/hero-loop.mp4"
           autoPlay
