@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Container from "./Container";
 import ConsultationButton from "./ConsultationButton";
@@ -18,6 +19,7 @@ export default function PageHero({
   subhead,
   image,
   imageAlt,
+  video,
   align = "center",
   minH = "82vh",
   priority = true,
@@ -29,6 +31,10 @@ export default function PageHero({
   subhead?: string;
   image: string;
   imageAlt: string;
+  // Optional ambient loop. When set, the hero plays this muted video with
+  // `image` as the poster — so no-JS, reduced-motion and mobile-autoplay-blocked
+  // visitors still see the still image, and it's the parallax layer's fallback.
+  video?: string;
   align?: "center" | "bottom";
   minH?: string;
   priority?: boolean;
@@ -38,6 +44,35 @@ export default function PageHero({
   const lines = Array.isArray(title) ? title : [title];
   const bottom = align === "bottom";
 
+  // Hardened muted-inline autoplay (mirrors the home hero): set the muted
+  // *property* (React only sets the attribute → iOS blocks autoplay), start it,
+  // and retry on first interaction / refocus. Reduced motion holds the poster.
+  const videoRef = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      v.pause();
+      return;
+    }
+    const play = () => {
+      v.muted = true;
+      v.defaultMuted = true;
+      const p = v.play();
+      if (p && typeof p.catch === "function") p.catch(() => {});
+    };
+    play();
+    const onVisible = () => {
+      if (document.visibilityState === "visible") play();
+    };
+    window.addEventListener("pointerdown", play);
+    document.addEventListener("visibilitychange", onVisible);
+    return () => {
+      window.removeEventListener("pointerdown", play);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+  }, [video]);
+
   return (
     <section
       className="relative flex w-full overflow-hidden"
@@ -46,16 +81,36 @@ export default function PageHero({
       {/* Background — oversized (116% tall, offset up 8%) so the parallax drift
           and Ken Burns zoom never expose an edge. */}
       <div data-parallax className="absolute inset-x-0 -top-[8%] z-0 h-[116%]">
-        <div className="hero-kenburns absolute inset-0">
-          <Image
-            src={image}
-            alt={imageAlt}
-            fill
-            priority={priority}
-            sizes="100vw"
-            className="object-cover"
-          />
-        </div>
+        {video ? (
+          // Full-bleed ambient loop. The clip is composed wide so object-cover
+          // fills the hero without cropping the subject. Poster = same image.
+          <video
+            ref={videoRef}
+            aria-hidden
+            // object-right keeps the subject (composed on the right of the wide
+            // clip) in frame on narrow/portrait screens, where object-cover would
+            // otherwise crop to the dark centre and hide the animation.
+            className="absolute inset-0 h-full w-full object-cover object-right"
+            poster={image}
+            muted
+            loop
+            playsInline
+            preload="auto"
+          >
+            <source src={video} type="video/mp4" />
+          </video>
+        ) : (
+          <div className="hero-kenburns absolute inset-0">
+            <Image
+              src={image}
+              alt={imageAlt}
+              fill
+              priority={priority}
+              sizes="100vw"
+              className="object-cover"
+            />
+          </div>
+        )}
       </div>
 
       {/* Scrim for legibility. */}

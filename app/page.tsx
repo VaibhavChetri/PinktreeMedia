@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import Container from "@/components/Container";
-import ConsultationButton from "@/components/ConsultationButton";
+import { BeamButton } from "@/components/ui/beam-button";
 import SelectedWork from "@/components/SelectedWork";
 import HeroTypographic from "@/components/HeroTypographic";
 import CursorImageTrail from "@/components/CursorImageTrail";
@@ -102,6 +101,7 @@ const SELECTED_CLIENTS = [
   "Swifty Beats",
 ];
 
+
 export default function Home() {
   return (
     <>
@@ -110,53 +110,50 @@ export default function Home() {
       {/* 1 — Hero (kinetic typography, light) */}
       <HeroTypographic />
 
-      {/* 2 — Who we are. 7/12 column, 5/12 deliberately empty (negative space). */}
-      <section className="bg-paper py-[var(--space-section)]">
+      {/* 2 — Who we are (dusk: dark plum, pearl type) */}
+      <section className="bg-[var(--color-dusk-0)] pb-[var(--space-section)] pt-[calc(var(--space-section)/2)]">
         <Container>
           <div className="grid grid-cols-1 md:grid-cols-12">
-            <div className="md:col-span-7" data-reveal-stagger>
-              {/* label is General Sans, not the display serif */}
-              <h2 className="mb-12 font-sans text-[0.6875rem] font-medium uppercase tracking-[0.15em] text-stone">
+            <div className="md:col-span-9">
+              <h2 className="mb-10 font-sans text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-stone">
                 The consultancy
               </h2>
-              <p className="max-w-[640px] font-display text-[clamp(1.25rem,2.5vw,1.75rem)] font-light leading-[1.5] text-ink">
+              <p className="max-w-[720px] font-display text-[clamp(1.5rem,3vw,2.4rem)] font-light leading-[1.3] text-paper">
                 A luxury creative consultancy handling every aspect of a
-                brand&rsquo;s marketing under one roof, quietly and
-                exceptionally well.
+                brand&rsquo;s marketing under one roof, quietly and{" "}
+                <span className="text-pink">exceptionally</span> well.
               </p>
             </div>
-            <div className="hidden md:col-span-5 md:block" aria-hidden />
           </div>
         </Container>
       </section>
 
-      {/* 3 — What we do. Editorial index: hairline rows, hover reveals a pink
-          name + a sliding arrow. Rows link to the work (services live there). */}
-      <section className="bg-paper pb-[var(--space-section)]">
+      {/* 3 — What we do (dusk: lifted plum). Editorial index, hairline rows. */}
+      <section className="bg-[var(--color-dusk-1)] py-[var(--space-section)]">
         <Container>
           <CursorImageTrail groups={CAPABILITY_IMAGES}>
-          <ul data-reveal-stagger>
-            {CAPABILITIES.map((capability, i) => (
-              <li key={capability} data-trail-key={capability}>
-                <Link
-                  href={SERVICE_HREFS[capability]}
-                  className={`group flex items-center justify-between border-b border-line py-6 ${
-                    i === 0 ? "border-t" : ""
-                  }`}
-                >
-                  <span className="font-display text-[clamp(1.75rem,4vw,3.25rem)] font-light text-ink transition-colors duration-300 group-hover:text-pink">
-                    {capability}
-                  </span>
-                  <span
-                    aria-hidden
-                    className="translate-x-2 font-sans text-2xl text-stone opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+            <ul>
+              {CAPABILITIES.map((capability, i) => (
+                <li key={capability} data-trail-key={capability}>
+                  <Link
+                    href={SERVICE_HREFS[capability]}
+                    className={`group flex items-center justify-between border-b border-white/12 py-7 ${
+                      i === 0 ? "border-t border-white/12" : ""
+                    }`}
                   >
-                    &rarr;
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+                    <span className="font-display text-[clamp(1.75rem,4vw,3.25rem)] font-light text-paper transition-colors duration-300 group-hover:text-pink">
+                      {capability}
+                    </span>
+                    <span
+                      aria-hidden
+                      className="translate-x-2 font-sans text-2xl text-stone opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+                    >
+                      &rarr;
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </CursorImageTrail>
           <p className="mt-12 text-lede">
             <Link
@@ -169,9 +166,14 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* 4 — Selected work. No top padding: section 3's pb-[--space-section]
-          already provides the gap (one boundary, one gap). */}
-      <section className="bg-paper">
+      {/* 4 — Selected work — dusk breaks into daylight: plum resolves to blush. */}
+      <section
+        className="pb-[var(--space-section)] pt-[var(--space-section)]"
+        style={{
+          background:
+            "linear-gradient(to bottom, var(--color-dusk-1) 0%, var(--color-blush) 46%)",
+        }}
+      >
         <Container>
           <p className="text-eyebrow uppercase text-stone">Selected work</p>
         </Container>
@@ -180,38 +182,28 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5 — Trust signals */}
-      <section className="bg-paper py-[var(--space-section)]">
+      {/* 5 — Trust signals — the light band. Client pills fall on the blush. */}
+      <section className="bg-[var(--color-blush)] py-[var(--space-section)]">
         <Container>
-          <h2 data-reveal className="text-eyebrow uppercase text-ink">
-            Selected clients
-          </h2>
+          <h2 className="text-eyebrow uppercase text-ink/70">Selected clients</h2>
           <TrustBadges names={SELECTED_CLIENTS} />
         </Container>
       </section>
 
-      {/* 6 — Closing CTA */}
-      <section className="relative min-h-[60vh] w-full overflow-hidden">
-        <Image
-          src="/images/architecture-dusk.jpg"
-          alt="A modern building facade at dusk with a single window glowing warm."
-          fill
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/50 to-ink/40"
-        />
-        <Container className="relative flex min-h-[60vh] flex-col items-start justify-center py-[var(--space-section)] text-paper">
-          <h2
-            data-reveal
-            className="max-w-[24ch] font-display text-h2 font-light"
-          >
-            Start a conversation.
+      {/* 6 — Closing. Rose glow refracted through liquid glass; night holds. */}
+      <section
+        className="relative py-[calc(var(--space-section)*1.4)]"
+        style={{
+          background:
+            "linear-gradient(to bottom, var(--color-blush) 0%, var(--color-dusk-3) 32%)",
+        }}
+      >
+        <Container className="flex flex-col items-center text-center">
+          <h2 className="max-w-[16ch] font-display text-[clamp(2.25rem,6vw,4.5rem)] font-light leading-[1] tracking-[-0.03em] text-paper">
+            Start a <span className="text-pink">conversation.</span>
           </h2>
-          <div className="mt-10">
-            <ConsultationButton />
+          <div className="mt-11">
+            <BeamButton />
           </div>
         </Container>
       </section>

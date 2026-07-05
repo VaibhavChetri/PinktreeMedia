@@ -21,8 +21,8 @@ export default function WorkIndex() {
         eyebrow="Selected work"
         title={["Depth over", "breadth."]}
         subhead="A small number of brands, handled completely. Each project shows the full breadth of what we do, through real work."
-        image="/images/chigwell-marquee-night.jpg"
-        imageAlt="An illuminated event marquee at night on the grounds of an English manor estate."
+        image="/images/work-marquee-evening.png"
+        imageAlt="An illuminated sailcloth event marquee glowing warm at night on the lawns of an English manor estate."
         minH="80vh"
       />
       <Container className="py-[var(--space-section)]">

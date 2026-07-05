@@ -7,47 +7,79 @@
    ============================================================ */
 
 @theme {
-  /* ---- Colour ---- */
-  --color-ink: #0e0e0e; /* near-black: primary text, dark sections */
-  --color-paper: #fafaf8; /* warm off-white: background */
-  --color-pink: #de80b3; /* sampled from logo-dark.png (222,128,179) */
-  --color-pink-deep: #c873a1; /* 10% darker, hover states */
-  --color-stone: #8a8580; /* warm grey: captions, meta */
-  --color-line: #e5e2dd; /* hairlines, dividers */
+  /* ---- Colour · "Dusk" palette (plum → pearl, rose light) ---- */
+  --color-ink: #191016;
+  /* warm plum-black: dark surfaces + type-on-light */
+  --color-paper: #f6eef0;
+  /* pink-cast pearl: light surfaces + type-on-dark */
+  --color-pink: #e486b3;
+  /* the living rose (glow + accent on dark) */
+  --color-pink-deep: #b85c8b;
+  /* rose-deep: accent legible on light, hover */
+  --color-stone: #9e8e9a;
+  /* mauve-grey: captions, meta (tinted, not neutral) */
+  --color-line: #e4d8e0;
+  /* pearl-mauve hairline (light zone) */
+  --color-blush: #e4cfd9;
+  /* dusty rose-pearl (a touch of black in it): the light "daylight" middle band */
+
+  /* Dusk background scale — the page travels down through these. Each dark
+     step stays dark enough that pearl text clears 4.5:1; text never sits on
+     the muddy mid-tones (those live in the image/thread "breath"). */
+  --color-dusk-0: #191016; /* hero / first dark section */
+  --color-dusk-1: #221722; /* lifted plum */
+  --color-dusk-2: #2f2130; /* deeper mauve-plum */
+  --color-dusk-3: #3c2a3d; /* last dark step before the transition */
 
   /* ---- Type families ---- */
   --font-sans: var(--font-general-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-sentient), ui-serif, Georgia, serif;
+  /* Fraunces is now the site-wide display face (was Sentient). */
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
 
   /* ---- Type scale (fluid, PRD: 12/16/20/32/48/72/104) ---- */
-  --text-eyebrow: clamp(0.75rem, 0.74rem + 0.05vw, 0.8125rem); /* 12 */
+  --text-eyebrow: clamp(0.75rem, 0.74rem + 0.05vw, 0.8125rem);
+  /* 12 */
   --text-eyebrow--line-height: 1.4;
   --text-eyebrow--letter-spacing: 0.12em;
   --text-eyebrow--font-weight: 500;
 
-  --text-body: clamp(1rem, 0.97rem + 0.15vw, 1.125rem); /* 16 */
+  --text-body: clamp(1rem, 0.97rem + 0.15vw, 1.125rem);
+  /* 16 */
   --text-body--line-height: 1.6;
 
-  --text-lede: clamp(1.125rem, 1.04rem + 0.4vw, 1.25rem); /* 20 */
+  --text-lede: clamp(1.125rem, 1.04rem + 0.4vw, 1.25rem);
+  /* 20 */
   --text-lede--line-height: 1.5;
 
-  --text-h3: clamp(1.5rem, 1.15rem + 1.55vw, 2rem); /* 32 */
+  --text-h3: clamp(1.5rem, 1.15rem + 1.55vw, 2rem);
+  /* 32 */
   --text-h3--line-height: 1.15;
 
-  --text-h2: clamp(2rem, 1.35rem + 2.9vw, 3rem); /* 48 */
+  --text-h2: clamp(2rem, 1.35rem + 2.9vw, 3rem);
+  /* 48 */
   --text-h2--line-height: 1.08;
 
-  --text-h1: clamp(2.75rem, 1.5rem + 5.6vw, 4.5rem); /* 72 */
+  --text-h1: clamp(2.75rem, 1.5rem + 5.6vw, 4.5rem);
+  /* 72 */
   --text-h1--line-height: 1.05;
 
   /* Hero display: sized so the two-line headline reads on two lines from 360px up.
      Floor 44px (widest single word fits the 360 spec-min); ~88px cap on large. */
-  --text-display: clamp(2.75rem, 6vw, 5.5rem); /* 44 -> 88 */
+  --text-display: clamp(2.75rem, 6vw, 5.5rem);
+  /* 44 -> 88 */
   --text-display--line-height: 0.95;
   --text-display--letter-spacing: -0.03em;
 
   /* ---- Motion ---- */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Animatable angle for the CTA aurora. @property lets a conic-gradient's angle
+   be tweened (a plain custom property can't) — pure CSS, no JS RAF loop. */
+@property --cta-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
 }
 
 /* Layout tokens that switch at a breakpoint (can't be static @theme):
@@ -56,21 +88,27 @@
   --gutter: 24px;
   --shell-max: 1440px;
   --space-section: 72px;
-  --nav-h: 60px; /* mobile */
-  --hero-inset: clamp(32px, 6vw, 120px); /* content x-offset in the hero */
+  --nav-h: 60px;
+  /* mobile */
+  --hero-inset: clamp(32px, 6vw, 120px);
+  /* content x-offset in the hero */
 }
+
 @media (min-width: 768px) {
   :root {
     --gutter: 48px;
     --space-section: 120px;
-    --nav-h: 72px; /* desktop */
+    --nav-h: 72px;
+    /* desktop */
   }
 }
 
 /* ---- Base ---- */
+/* The site is a dark "dusk" world by default (plum bg, pearl text). Individual
+   light bands (e.g. the home "Selected clients" blush) set their own bg + text. */
 body {
-  background: var(--color-paper);
-  color: var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-paper);
   font-family: var(--font-sans);
   font-size: var(--text-body);
   line-height: 1.6;
@@ -83,6 +121,7 @@ body {
    beats any layer regardless of specificity. Unlayered, this block silently
    overrode font-light / text-display leading + tracking on every heading. */
 @layer base {
+
   h1,
   h2,
   h3,
@@ -90,8 +129,12 @@ body {
     font-family: var(--font-display);
     font-weight: 400;
     line-height: 1.05;
-    letter-spacing: -0.01em;
-    text-wrap: balance; /* even line lengths, no orphans, on every heading */
+    letter-spacing: -0.02em;
+    /* Fraunces optical sizing + the SOFT/WONK character it was loaded with */
+    font-optical-sizing: auto;
+    font-variation-settings: "opsz" 60, "SOFT" 24, "WONK" 0;
+    text-wrap: balance;
+    /* even line lengths, no orphans, on every heading */
   }
 }
 
@@ -107,12 +150,54 @@ body {
   animation: kenburns 24s var(--ease-out-soft) infinite alternate;
   will-change: transform;
 }
+
 @keyframes kenburns {
   from {
     transform: scale(1.02);
   }
+
   to {
     transform: scale(1.12) translate3d(1.5%, -1.5%, 0);
+  }
+}
+
+/* CTA border beam: a rose "comet" of light traces the pill's rounded border to
+   draw the eye. A conic gradient rotated via @property --cta-angle, masked to
+   just the ~1.5px border ring (mask-composite exclude). Speeds up on hover. The
+   reduced-motion rule below zeroes the duration -> the angle freezes, leaving a
+   static rose glint on the rim. */
+.cta-beam::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  border-radius: inherit;
+  padding: 1.5px;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--cta-angle),
+    transparent 0deg,
+    transparent 245deg,
+    var(--color-pink) 300deg,
+    var(--color-paper) 325deg,
+    var(--color-pink) 350deg,
+    transparent 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: cta-beam 3.4s linear infinite;
+}
+
+.cta-beam:hover::before {
+  animation-duration: 1.4s;
+}
+
+@keyframes cta-beam {
+  to {
+    --cta-angle: 360deg;
   }
 }
 
@@ -137,11 +222,13 @@ body {
    only >=768px where the custom cursor element actually renders (below that the
    native cursor must stay, or a narrow desktop window would have no cursor). */
 @media (min-width: 768px) {
+
   .has-custom-cursor,
   .has-custom-cursor a,
   .has-custom-cursor button {
     cursor: none;
   }
+
   .has-custom-cursor input,
   .has-custom-cursor textarea,
   .has-custom-cursor select {
@@ -161,6 +248,7 @@ body {
 
 /* Reduced motion: disable all animation/transition/scroll behaviour. */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {

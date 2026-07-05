@@ -100,15 +100,15 @@ export default function ContactForm() {
           autoComplete: field.autoComplete,
           "aria-invalid": error ? true : undefined,
           "aria-describedby": error ? errorId : undefined,
-          className: `mt-3 w-full bg-transparent border-b py-3 text-ink outline-none transition-colors duration-[400ms] ease-[var(--ease-out-soft)] focus:border-ink ${
-            error ? "border-pink" : "border-line"
+          className: `mt-3 w-full bg-transparent border-b py-3 text-paper caret-pink outline-none transition-colors duration-[400ms] ease-[var(--ease-out-soft)] focus:border-pink ${
+            error ? "border-pink" : "border-white/20"
           }`,
         };
         return (
           <div key={field.name}>
             <label
               htmlFor={field.name}
-              className="text-eyebrow uppercase text-ink"
+              className="text-eyebrow uppercase text-stone"
             >
               {field.label}
             </label>
@@ -118,7 +118,7 @@ export default function ContactForm() {
               <input {...shared} type={field.type} />
             )}
             {error && (
-              <p id={errorId} className="mt-2 text-ink">
+              <p id={errorId} className="mt-2 text-pink">
                 {error}
               </p>
             )}
@@ -128,7 +128,7 @@ export default function ContactForm() {
 
       <button
         type="submit"
-        className="self-start border border-pink px-6 py-3 text-eyebrow uppercase text-ink transition-colors duration-[400ms] ease-[var(--ease-out-soft)] hover:bg-pink hover:text-ink"
+        className="self-start border border-pink px-6 py-3 text-eyebrow uppercase text-paper transition-colors duration-[400ms] ease-[var(--ease-out-soft)] hover:bg-pink hover:text-ink"
       >
         Send Enquiry
       </button>

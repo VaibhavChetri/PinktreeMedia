@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { sentient, generalSans, fraunces } from "./fonts";
+import { generalSans, fraunces } from "./fonts";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sentient.variable} ${generalSans.variable} ${fraunces.variable}`}
+      className={`${generalSans.variable} ${fraunces.variable}`}
     >
       <body>
         <MotionProvider>

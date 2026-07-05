@@ -17,8 +17,9 @@ export default function Contact() {
         eyebrow="Contact"
         title={["Start a", "conversation."]}
         subhead="A UK luxury creative consultancy. Complete marketing solutions for ambitious brands."
-        image="/images/architecture-dusk.jpg"
-        imageAlt="A modern building facade at dusk with a single window glowing warm."
+        image="/images/contact-rose-wide.png"
+        video="/video/contact-rose-wide.mp4"
+        imageAlt="Two flowing tendrils of rose light curving toward one another and meeting in deep plum-black space — a conversation forming."
         minH="64vh"
         spotlight
       />
@@ -27,7 +28,7 @@ export default function Contact() {
           {/* Left — clickable contact details */}
           <div>
             <div>
-              <p className="text-eyebrow uppercase text-ink">Email</p>
+              <p className="text-eyebrow uppercase text-stone">Email</p>
               <p className="mt-3 text-h3 break-words">
                 <a
                   href="mailto:info@pinktreemedia.com"
@@ -39,7 +40,7 @@ export default function Contact() {
             </div>
 
             <div className="mt-10">
-              <p className="text-eyebrow uppercase text-ink">Telephone</p>
+              <p className="text-eyebrow uppercase text-stone">Telephone</p>
               <p className="mt-3 text-lede">
                 <a
                   href="tel:+442071931033"
@@ -51,7 +52,7 @@ export default function Contact() {
             </div>
 
             <div className="mt-10">
-              <p className="text-eyebrow uppercase text-ink">Studio</p>
+              <p className="text-eyebrow uppercase text-stone">Studio</p>
               <p className="mt-3 text-lede">
                 High Road, Chigwell
                 <br />

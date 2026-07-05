@@ -82,8 +82,15 @@ export default function TrustBadges({ names }: { names: string[] }) {
     });
 
     const wall = { isStatic: true, render: { visible: false } };
+    // Rest the pile on a shelf a few px inside the container, not on the very
+    // bottom edge: the container clips at y=H (overflow-hidden), so a floor whose
+    // top is exactly H shaves the pills' rounded bottoms and they read as
+    // half-submerged. FLOOR_INSET lifts the surface so they touch it and sit
+    // fully visible, blush showing beneath.
+    const FLOOR_INSET = 24;
+    const floorTop = H - FLOOR_INSET;
     const walls = [
-      Bodies.rectangle(W / 2, H + 40, W + 400, 80, wall), // floor
+      Bodies.rectangle(W / 2, floorTop + 40, W + 400, 80, wall), // floor top at H - FLOOR_INSET
       Bodies.rectangle(-40, H / 2, 80, H * 3, wall), // left
       Bodies.rectangle(W + 40, H / 2, 80, H * 3, wall), // right
     ];

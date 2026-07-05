@@ -61,7 +61,7 @@ export default async function CaseStudyPage({
   // 2 — The Challenge
   chapters.push(
     <section key="challenge">
-      <h2 data-reveal className="text-eyebrow uppercase text-ink">
+      <h2 data-reveal className="text-eyebrow uppercase text-stone">
         The Challenge
       </h2>
       <p className="mt-8 max-w-[52ch] text-lede">{content.challenge}</p>
@@ -72,7 +72,7 @@ export default async function CaseStudyPage({
   if (content.delivered.length > 0) {
     chapters.push(
       <section key="delivered">
-        <h2 data-reveal className="text-eyebrow uppercase text-ink">
+        <h2 data-reveal className="text-eyebrow uppercase text-stone">
           What We Delivered
         </h2>
         <dl data-reveal-stagger className="mt-10 flex flex-col">
@@ -84,7 +84,7 @@ export default async function CaseStudyPage({
               }`}
             >
               <dt className="font-display text-h3 font-light">{d.area}</dt>
-              <dd className="mt-3 max-w-[52ch] text-ink">{d.line}</dd>
+              <dd className="mt-3 max-w-[52ch] text-paper/80">{d.line}</dd>
             </div>
           ))}
         </dl>
@@ -96,7 +96,7 @@ export default async function CaseStudyPage({
   // other, alternating and vertically centred — not image-with-caption-stacked.
   chapters.push(
     <section key="work">
-      <h2 data-reveal className="text-eyebrow uppercase text-ink">
+      <h2 data-reveal className="text-eyebrow uppercase text-stone">
         The Work
       </h2>
       <div className="mt-16 flex flex-col gap-20 md:gap-28">
@@ -128,7 +128,7 @@ export default async function CaseStudyPage({
                 <p className="text-eyebrow uppercase text-stone">
                   {String(i + 1).padStart(2, "0")} — {img.caption}
                 </p>
-                <p className="mt-5 max-w-[42ch] text-lede text-ink">
+                <p className="mt-5 max-w-[42ch] text-lede text-paper/80">
                   {img.blurb ?? img.caption}
                 </p>
               </figcaption>
@@ -143,7 +143,7 @@ export default async function CaseStudyPage({
   if (content.results && content.results.length > 0) {
     chapters.push(
       <section key="results">
-        <h2 data-reveal className="text-eyebrow uppercase text-ink">
+        <h2 data-reveal className="text-eyebrow uppercase text-stone">
           Results
         </h2>
         <ul className="mt-8 flex flex-col gap-4">
@@ -160,7 +160,7 @@ export default async function CaseStudyPage({
   // 6 — Next
   chapters.push(
     <section key="next">
-      <h2 data-reveal className="text-eyebrow uppercase text-ink">Next</h2>
+      <h2 data-reveal className="text-eyebrow uppercase text-stone">Next</h2>
       {next ? (
         <Link
           href={`/work/${next.slug}`}

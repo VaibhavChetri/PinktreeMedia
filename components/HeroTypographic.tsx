@@ -113,7 +113,7 @@ export default function HeroTypographic() {
       videoEl.muted = true;
       videoEl.defaultMuted = true;
       const p = videoEl.play();
-      if (p && typeof p.catch === "function") p.catch(() => {});
+      if (p && typeof p.catch === "function") p.catch(() => { });
     };
     startVideo();
     // First user interaction — recovers Low Power Mode, which blocks autoplay

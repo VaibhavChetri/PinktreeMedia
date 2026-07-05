@@ -16,9 +16,10 @@ export default function About() {
       <PageHero
         eyebrow="About"
         title={["A consultancy built", "on taste, restraint", "and the long view."]}
-        image="/images/manor-house-golden.jpg"
-        imageAlt="An English manor house at golden hour behind a long lawn."
-        minH="84vh"
+        image="/images/about-rose-wide.png"
+        video="/video/about-rose-wide.mp4"
+        imageAlt="A luminous plume of rose ink blooming and unfurling in deep plum-black space — an idea taking form."
+        minH="100svh"
       />
       <Container className="py-[var(--space-section)]">
       {/* Experience — wide texture band */}
@@ -36,7 +37,7 @@ export default function About() {
           />
         </div>
         <div className="mt-12 md:grid md:grid-cols-2 md:gap-16">
-          <h2 className="text-eyebrow uppercase text-ink">Experience</h2>
+          <h2 className="text-eyebrow uppercase text-stone">Experience</h2>
           <p className="mt-6 max-w-[46ch] text-lede md:mt-0">
             Years of work across luxury hospitality, events, beauty and
             lifestyle. Brands where presentation is everything and detail
@@ -60,7 +61,7 @@ export default function About() {
           />
         </div>
         <div>
-          <h2 className="text-eyebrow uppercase text-ink">Approach</h2>
+          <h2 className="text-eyebrow uppercase text-stone">Approach</h2>
           <p className="mt-6 max-w-[46ch] text-lede">
             Everything under one roof. Design and branding, print and
             merchandise, websites and digital, social media. All considered
@@ -86,7 +87,7 @@ export default function About() {
           </div>
         </div>
         <div className="md:order-1">
-          <h2 className="text-eyebrow uppercase text-ink">Quality</h2>
+          <h2 className="text-eyebrow uppercase text-stone">Quality</h2>
           <p className="mt-6 max-w-[46ch] text-lede">
             We measure ourselves on craft. Fewer projects, more attention;
             nothing leaves the studio until it is genuinely worthy of the brands
@@ -97,7 +98,7 @@ export default function About() {
 
       {/* Partnership — text block */}
       <section className="mt-[var(--space-section)] md:grid md:grid-cols-2 md:gap-16">
-        <h2 className="text-eyebrow uppercase text-ink">Partnership</h2>
+        <h2 className="text-eyebrow uppercase text-stone">Partnership</h2>
         <p className="mt-6 max-w-[46ch] text-lede md:mt-0">
           We work with a small number of clients for the long term, as a
           trusted partner invested in the reputation we help to build.
